@@ -1,0 +1,35 @@
+name: Deploy Nginx
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: code checkout
+      uses: actions/checkout@v2
+
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+
+    - name: 'Use gcloud CLI'
+      run: 'gcloud info'
+  
+    - name: build and push the docker image
+      env:
+        GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
+        TAG: ${{github.sha}}
+      run: |
+        gcloud auth configure-docker us-east1-docker.pkg.dev
+        docker build -t us-east1-docker.pkg.dev/$GOOGLE_PROJECT/pdp-test4/go-user-service:$TAG .
+        docker push us-east1-docker.pkg.dev/$GOOGLE_PROJECT/pdp-test4/go-user-service:$TAG

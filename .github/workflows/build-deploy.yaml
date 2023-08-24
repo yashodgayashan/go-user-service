@@ -33,3 +33,16 @@ jobs:
         gcloud auth configure-docker us-east1-docker.pkg.dev
         docker build -t us-east1-docker.pkg.dev/$GOOGLE_PROJECT/pdp-test4/go-user-service:$TAG .
         docker push us-east1-docker.pkg.dev/$GOOGLE_PROJECT/pdp-test4/go-user-service:$TAG
+    - name: Deploy to Choreo
+      env:
+        GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
+        TAG: ${{github.sha}}
+      run: |
+        curl --location --request POST 'https://apis.preview-dv.choreo.dev/devops/1.0.0/external-ci/deploy' \
+        --header 'Content-Type: application/json' \
+        --data-raw '{
+          "component_id": "932e0716-f7f6-4068-b095-a3b327634dbd",
+          "version_id": "6d864d52-2cf8-4139-8a28-4c88f1dce91d",
+          "image": "us-east1-docker.pkg.dev/'${GOOGLE_PROJECT}'/pdp-test4/go-user-service:'${TAG}'",
+          "token": "${{ secrets.TOKEN }}"
+        }'

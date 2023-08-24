@@ -1,4 +1,4 @@
-name: Deploy Nginx
+name: Deploy User Service
 
 on:
   push:

@@ -15,17 +15,15 @@ jobs:
       uses: actions/checkout@v2
 
     - id: 'auth'
+      name: 'Authenticate with Google Cloud'
       uses: 'google-github-actions/auth@v1'
       with:
         credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
 
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v1'
-
-    - name: 'Use gcloud CLI'
-      run: 'gcloud info'
   
-    - name: build and push the docker image
+    - name: Build and push the docker image
       env:
         GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
         TAG: ${{github.sha}}
@@ -41,8 +39,8 @@ jobs:
         curl --location --request POST 'https://apis.preview-dv.choreo.dev/devops/1.0.0/external-ci/deploy' \
         --header 'Content-Type: application/json' \
         --data-raw '{
-          "component_id": "932e0716-f7f6-4068-b095-a3b327634dbd",
-          "version_id": "6d864d52-2cf8-4139-8a28-4c88f1dce91d",
+          "component_id": "acdedab3-4d3f-47b9-b6bd-18a4a97d9e45",
+          "version_id": "490b8345-3161-49b8-8244-4df48ce4d069",
           "image": "us-east1-docker.pkg.dev/'${GOOGLE_PROJECT}'/pdp-test4/go-user-service:'${TAG}'",
           "token": "${{ secrets.TOKEN }}"
         }'

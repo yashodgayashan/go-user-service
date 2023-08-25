@@ -21,7 +21,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	nextID++
 	users = append(users, newUser)
 
-	w.Header().Set("Content-Type", "application/json")
+	// w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(newUser)
 }
@@ -36,7 +36,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 	for _, user := range users {
 		if user.ID == userID {
-			w.Header().Set("Content-Type", "application/json")
+			// w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
 			json.NewEncoder(w).Encode(user)
 			return
@@ -65,7 +65,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		if user.ID == userID {
 			updatedUser.ID = userID
 			users[i] = updatedUser
-			w.Header().Set("Content-Type", "application/json")
+			// w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
 			json.NewEncoder(w).Encode(updatedUser)
 			return
@@ -86,7 +86,7 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	for i, user := range users {
 		if user.ID == userID {
 			users = append(users[:i], users[i+1:]...)
-			w.Header().Set("Content-Type", "application/json")
+			// w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
 			fmt.Fprintf(w, "User with ID %d deleted", userID)
 			return

@@ -39,8 +39,8 @@ jobs:
         curl --location --request POST 'https://apis.preview-dv.choreo.dev/devops/1.0.0/external-ci/deploy' \
         --header 'Content-Type: application/json' \
         --data-raw '{
-          "component_id": "acdedab3-4d3f-47b9-b6bd-18a4a97d9e45",
-          "version_id": "490b8345-3161-49b8-8244-4df48ce4d069",
+          "component_id": "67cc6342-b262-46eb-9c8d-d1f600d6dc79",
+          "version_id": "2b5feb4a-9d92-4996-80de-1c3aeb2d4bda",
           "image": "us-east1-docker.pkg.dev/'${GOOGLE_PROJECT}'/pdp-test4/go-user-service:'${TAG}'",
           "token": "${{ secrets.TOKEN }}"
         }'

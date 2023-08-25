@@ -79,11 +79,11 @@ components:
     User:
       type: object
       properties:
-        ID:
+        id:
           type: integer
-        Name:
+        name:
           type: string
-        Age:
+        age:
           type: integer
-        Location:
+        location:
           type: string
